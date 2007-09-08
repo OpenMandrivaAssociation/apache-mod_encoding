@@ -7,7 +7,7 @@
 Summary:	Mod_encoding is a DSO module for the apache web server
 Name:		apache-%{mod_name}
 Version:	0.0.%{snapshot}
-Release:	%mkrel 4
+Release:	%mkrel 5
 Group:		System/Servers
 License:	GPL
 URL:		http://webdav.todo.gr.jp/
@@ -23,8 +23,6 @@ Requires:	apache-conf >= 2.2.0
 Requires:	apache >= 2.2.0
 BuildRequires:	apache-devel >= 2.2.0
 BuildRequires:	file
-Provides:	apache2-mod_encoding
-Obsoletes:	apache2-mod_encoding
 Epoch:		1
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
