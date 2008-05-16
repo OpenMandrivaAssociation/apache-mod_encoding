@@ -1,5 +1,5 @@
 #Module-Specific definitions
-%define snapshot 20021209
+%define snapshot 20040616
 %define mod_name mod_encoding
 %define mod_conf 44_%{mod_name}.conf
 %define mod_so %{mod_name}.so
@@ -7,14 +7,14 @@
 Summary:	DSO module for the apache web server
 Name:		apache-%{mod_name}
 Version:	0.0.%{snapshot}
-Release:	%mkrel 7
+Release:	%mkrel 1
 Group:		System/Servers
 License:	GPL
 URL:		http://webdav.todo.gr.jp/
-Source0: 	mod_encoding-%{version}.tar.bz2
-Source1:	%{mod_conf}.bz2
-# (fc) 0.0.20021209-1mdk apache2 port
-Patch0:		mod_mod_encoding-0.0.20021209-apache220.diff
+Source0: 	mod_encoding-0.0.20021209.tar.bz2
+Source1:	%{mod_conf}
+Source2:	http://webdav.todo.gr.jp/download/experimental/mod_encoding.c.apache2.%{snapshot}
+Patch0:		mod_encoding.c.apache2.20040616-apache220.diff
 Requires(pre): rpm-helper
 Requires(postun): rpm-helper
 Requires(pre):	apache-conf >= 2.2.0
@@ -34,7 +34,11 @@ This module improves non-ascii filename interoperability of apache
 
 %prep
 
-%setup -q -n mod_encoding-%{snapshot}
+%setup -q -n mod_encoding-20021209
+
+cp %{SOURCE1} %{mod_conf}
+cp %{SOURCE2} %{mod_name}.c
+
 %patch0 -p0 -b .apache220
 
 # strip away annoying ^M
@@ -53,16 +57,13 @@ cd -
 %{_sbindir}/apxs -c -I$PWD/lib -L$PWD/lib/ -liconv_hook %{mod_name}.c
 
 %install
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
+rm -rf %{buildroot}
 
 install -d %{buildroot}%{_libdir}/apache-extramodules
 install -d %{buildroot}%{_sysconfdir}/httpd/modules.d
 
 install -m0755 .libs/*.so %{buildroot}%{_libdir}/apache-extramodules/
-bzcat %{SOURCE1} > %{buildroot}%{_sysconfdir}/httpd/modules.d/%{mod_conf}
-
-install -d %{buildroot}%{_var}/www/html/addon-modules
-ln -s ../../../..%{_docdir}/%{name}-%{version} %{buildroot}%{_var}/www/html/addon-modules/%{name}-%{version}
+install -m0644 %{mod_conf} %{buildroot}%{_sysconfdir}/httpd/modules.d/
 
 %post
 if [ -f %{_var}/lock/subsys/httpd ]; then
@@ -77,13 +78,10 @@ if [ "$1" = "0" ]; then
 fi
 
 %clean
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
+rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
-%doc AUTHORS ChangeLog README
+%doc AUTHORS ChangeLog README COPYING
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/httpd/modules.d/%{mod_conf}
 %attr(0755,root,root) %{_libdir}/apache-extramodules/%{mod_so}
-%{_var}/www/html/addon-modules/*
-
-
