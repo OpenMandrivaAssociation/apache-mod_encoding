@@ -7,7 +7,7 @@
 Summary:	DSO module for the apache web server
 Name:		apache-%{mod_name}
 Version:	0.0.%{snapshot}
-Release:	%mkrel 2
+Release:	%mkrel 3
 Group:		System/Servers
 License:	GPL
 URL:		http://webdav.todo.gr.jp/
