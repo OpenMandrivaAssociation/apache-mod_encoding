@@ -49,6 +49,8 @@ find . -type f|xargs file|grep 'text'|cut -d: -f1|xargs perl -p -i -e 's/\r//'
 
 cd lib
 [ -r iconv.h ] && rm -f iconv.h
+rm -f configure
+autoreconf -fis
 %configure --enable-shared=no
 %make CFLAGS="%{optflags} -fPIC"
 ln -s -f  iconv.h.replace iconv.h
