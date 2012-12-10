@@ -1,4 +1,2 @@
 sources:
-  "44_mod_encoding.conf:"	7fe61c3ad56b8fb2f98e776064cc2f5f8ff50eae
-  "mod_encoding-0.0.20021209.tar.bz2:"	f70b884f045efddce25e114c616ed296bae9e331
-  "mod_encoding.c.apache2.20040616:"	234917d1695670463f8ae18e414d6aa4d90a929c
+  "mod_encoding-0.0.20021209.tar.bz2": f70b884f045efddce25e114c616ed296bae9e331
