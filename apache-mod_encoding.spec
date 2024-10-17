@@ -10,7 +10,7 @@ Version:	0.0.%{snapshot}
 Release:	10
 Group:		System/Servers
 License:	GPL
-URL:		http://webdav.todo.gr.jp/
+URL:		https://webdav.todo.gr.jp/
 Source0: 	mod_encoding-0.0.20021209.tar.bz2
 Source1:	%{mod_conf}
 Source2:	http://webdav.todo.gr.jp/download/experimental/mod_encoding.c.apache2.%{snapshot}
